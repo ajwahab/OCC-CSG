@@ -44,6 +44,9 @@ IF(UNIX AND NOT APPLE)
     
 #    include_directories(${FREETYPE_INCLUDE_DIRS})
 #    link_directories(${FREETYPE_LIBRARY_DIR})
+ELSEIF(APPLE)
+    find_package(Freetype MODULE REQUIRED)
+    link_directories("/usr/local/lib")
 ENDIF()
 
 set(CMAKE_CXX_STANDARD 20) # C++11...
