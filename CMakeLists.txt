@@ -1,11 +1,11 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
 
-PROJECT(occ-csg-prj)
+project(occ-csg-prj)
 
-SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
-INCLUDE(cmake/CreateExecutable.cmake)
-INCLUDE(cmake/CreateLibrary.cmake)
+include(cmake/CreateExecutable.cmake)
+include(cmake/CreateLibrary.cmake)
 
 # Find opencascade libraries
 
@@ -15,15 +15,13 @@ find_package(OpenCASCADE COMPONENTS ModelingData REQUIRED)
 find_package(OpenCASCADE COMPONENTS DataExchange REQUIRED)
 find_package(OpenCASCADE COMPONENTS Visualization REQUIRED)
 include_directories(${OpenCASCADE_INCLUDE_DIR})
-MESSAGE("OCC-Include-Dir: ${OpenCASCADE_INCLUDE_DIR}")
+message("OCC-Include-Dir: ${OpenCASCADE_INCLUDE_DIR}")
 link_directories(${OpenCASCADE_LIBRARY_DIR})
-MESSAGE("OCC-Lib-Dir: ${OpenCASCADE_LIBRARY_DIR}")
-MESSAGE("OCC-Libs: ${OpenCASCADE_LIBRARIES}")
+message("OCC-Lib-Dir: ${OpenCASCADE_LIBRARY_DIR}")
+message("OCC-Libs: ${OpenCASCADE_LIBRARIES}")
 
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
-
-#include_directories("${CMAKE_CURRENT_SOURCE_DIR}/dependencies/freetype/include")
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # Find openmp libraries
 
@@ -35,22 +33,23 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 #endif()
 
 # Find freetype libraries on Linux (don't know why the one provided by the static occt dep doesn't work on Linux)
-IF(UNIX AND NOT APPLE)
-    find_library(FreeType REQUIRED)
-    
-    find_path (FONTCONFIG_INCLUDE_DIRS "fontconfig/fontconfig.h")
-    find_library(FontConfig REQUIRED)
-    
-    
-#    include_directories(${FREETYPE_INCLUDE_DIRS})
-#    link_directories(${FREETYPE_LIBRARY_DIR})
-ELSEIF(APPLE)
+if(UNIX AND NOT APPLE)
+    find_package(Freetype MODULE REQUIRED)
+    set(FreeType ${FREETYPE_LIBRARIES})
+    message("FreeType: ${FREETYPE_LIBRARIES}")
+
+    find_path(FONTCONFIG_INCLUDE_DIRS "fontconfig/fontconfig.h")
+    find_package(Fontconfig MODULE REQUIRED)
+
+    set(FontConfig ${Fontconfig_LIBRARIES})
+    message("FontConfig: ${Fontconfig_LIBRARIES}")
+elseif(APPLE)
     find_package(Freetype MODULE REQUIRED)
     link_directories("/usr/local/lib")
-ENDIF()
+endif()
 
 set(CMAKE_CXX_STANDARD 20) # C++11...
 set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
 set(CMAKE_CXX_EXTENSIONS OFF) #...without compiler extensions like gnu++11
 
-ADD_SUBDIRECTORY(src)
+add_subdirectory(src)
