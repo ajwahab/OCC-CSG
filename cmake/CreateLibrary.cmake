@@ -1,9 +1,9 @@
 macro(CreateLibrary)
 	
-	FILE(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/inc/*.hpp")
-	FILE(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+	file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/inc/*.hpp")
+	file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
-	ADD_LIBRARY(${PROJECT_NAME} ${SOURCES} ${HEADERS})
-	TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${ARGN})
+	add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+	target_link_libraries(${PROJECT_NAME} ${ARGN})
 
 endmacro(CreateLibrary)

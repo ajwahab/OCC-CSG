@@ -67,9 +67,7 @@ IF(UNIX AND NOT APPLE)
   target_link_libraries(occ-csg ${FontConfig} ${FreeType})
 ENDIF()  
 
-install (TARGETS occ-csg DESTINATION bin)
-
-
+install(TARGETS occ-csg DESTINATION bin)
 
 #TKPrim     # primitives, such as sphere, cone etc.
 #TKBool     # boolean operators

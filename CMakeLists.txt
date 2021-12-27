@@ -8,7 +8,6 @@ include(cmake/CreateExecutable.cmake)
 include(cmake/CreateLibrary.cmake)
 
 # Find opencascade libraries
-
 find_package(OpenCASCADE COMPONENTS FoundationClasses REQUIRED)
 find_package(OpenCASCADE COMPONENTS ModelingAlgorithms REQUIRED)
 find_package(OpenCASCADE COMPONENTS ModelingData REQUIRED)
@@ -24,7 +23,6 @@ message("OCC-Libs: ${OpenCASCADE_LIBRARIES}")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # Find openmp libraries
-
 #find_package(OpenMP)
 #if (OPENMP_FOUND)
 #    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
